@@ -40,7 +40,7 @@ export default function ResponsiveDrawer(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Kehadiran',, 'Data Karyawan', 'Laporan'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -52,18 +52,7 @@ export default function ResponsiveDrawer(props: Props) {
         ))}
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      
     </div>
   );
 
@@ -91,7 +80,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Kehadiran
           </Typography>
         </Toolbar>
       </AppBar>
@@ -133,6 +122,7 @@ export default function ResponsiveDrawer(props: Props) {
       >
         <Toolbar />
         {props.children}
+        
       </Box>
     </Box>
   );
