@@ -1,5 +1,5 @@
-'use client'
-import * as React from 'react';
+
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,20 +16,12 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 
 const drawerWidth = 240;
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  window?: () => Window;
-}
-
-export default function ResponsiveDrawer(props: Props) {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+const ResponsiveDrawer = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -40,24 +32,18 @@ export default function ResponsiveDrawer(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {['Kehadiran',, 'Data Karyawan', 'Laporan'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <Link href="/absensi_karyawan" passHref>
+          <ListItemButton component="a" onClick={handleDrawerToggle}>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Absensi Karyawan" />
+          </ListItemButton>
+        </Link>
       </List>
       <Divider />
-      
     </div>
   );
-
-  // Remove this const when copying and pasting into your project.
-  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -80,7 +66,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Kehadiran
+            Responsive drawer
           </Typography>
         </Toolbar>
       </AppBar>
@@ -89,14 +75,12 @@ export default function ResponsiveDrawer(props: Props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
@@ -121,9 +105,10 @@ export default function ResponsiveDrawer(props: Props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        {props.children}
-        
+        {/* Konten utama aplikasi */}
       </Box>
     </Box>
   );
-}
+};
+
+export default ResponsiveDrawer;
