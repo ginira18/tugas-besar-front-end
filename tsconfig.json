@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/pages/absensi_karyawan/absensi_karyawan.tsx", "app/components/AbsensiTable.jsx", "app/components/ResponsiveDrawer.jsx", "app/pages/absensi-karyawan.jsx", "app/layout.jsx", "app/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/pages/absensi_karyawan/absensi_karyawan.tsx", "app/components/AddCategoryForm.jsx", "app/components/LayoutDrawer.jsx", "app/pages/absensi-karyawan.jsx", "app/layout.jsx", "app/page.jsx"],
   "exclude": ["node_modules"]
 }

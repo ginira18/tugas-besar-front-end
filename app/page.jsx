@@ -1,12 +1,28 @@
 "use client"
 import React from 'react';
 import Layout from './layout';
+import { Button } from '@mui/material';
 
-const Page = () => {
+const Home = () => {
   return (
     <Layout>
+      <div>
+        Halaman Chart
+      </div>
     </Layout>
   );
 };
+export default Home;
+// import React from 'react';
+// import PieChart from './components/PieChart';
 
-export default Page;
+// const Page = () => {
+//   return (
+//     <div>
+//       <h1>Halaman dengan Pie Chart</h1>
+//       <PieChart />
+//     </div>
+//   );
+// };
+
+// export default Page;
