@@ -1,4 +1,3 @@
-// components/CategoryList.js
 
 import React, { useState } from 'react';
 import Table from '@mui/material/Table';
@@ -12,6 +11,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import AddEmployeeForm from './AddEmployeeForm';
 
 const EditCategoryModal = ({ open, onClose, onSave, categoryName }) => {
   const [editedCategory, setEditedCategory] = useState(categoryName);
@@ -52,8 +52,59 @@ const EditCategoryModal = ({ open, onClose, onSave, categoryName }) => {
   );
 };
 
-const CategoryList = ({ categories, onEdit, onDelete }) => {
+const AddEmployeeModal = ({ open, onClose, onAddEmployee }) => {
+  const [employeeName, setEmployeeName] = useState('');
+  const [employeeNIP, setEmployeeNIP] = useState('');
+
+  const handleAddEmployee = () => {
+    if (employeeName.trim() !== '' && employeeNIP.trim() !== '') {
+      onAddEmployee({ name: employeeName, nip: employeeNIP });
+      setEmployeeName('');
+      setEmployeeNIP('');
+      onClose();
+    }
+  };
+
+  return (
+    <Modal open={open} onClose={onClose}>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          bgcolor: 'background.paper',
+          border: '2px solid #000',
+          boxShadow: 24,
+          p: 4,
+        }}
+      >
+        <Typography variant="h6" component="div">
+          Tambah Karyawan
+        </Typography>
+        <TextField
+          label="NIP"
+          variant="outlined"
+          value={employeeNIP}
+          onChange={(e) => setEmployeeNIP(e.target.value)}
+        />
+        <TextField
+          label="Nama Karyawan"
+          variant="outlined"
+          value={employeeName}
+          onChange={(e) => setEmployeeName(e.target.value)}
+        />
+        <Button variant="contained" onClick={handleAddEmployee}>
+          Tambahkan
+        </Button>
+      </Box>
+    </Modal>
+  );
+};
+
+const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
 
   const handleEditCategory = (categoryName) => {
@@ -63,6 +114,16 @@ const CategoryList = ({ categories, onEdit, onDelete }) => {
 
   const handleEditModalClose = () => {
     setEditModalOpen(false);
+    setEditingCategory(null);
+  };
+
+  const handleAddEmployee = (categoryName) => {
+    setEditingCategory(categoryName);
+    setAddEmployeeModalOpen(true);
+  };
+
+  const handleAddEmployeeModalClose = () => {
+    setAddEmployeeModalOpen(false);
     setEditingCategory(null);
   };
 
@@ -79,12 +140,15 @@ const CategoryList = ({ categories, onEdit, onDelete }) => {
           {categories.map((category, index) => (
             <TableRow key={index}>
               <TableCell>{category}</TableCell>
-              <TableCell >
+              <TableCell>
                 <Button variant="outlined" onClick={() => handleEditCategory(category)}>
                   Edit
                 </Button>
                 <Button variant="outlined" onClick={() => onDelete(category)}>
                   Delete
+                </Button>
+                <Button variant="outlined" onClick={() => handleAddEmployee(category)}>
+                  Tambah Karyawan
                 </Button>
               </TableCell>
             </TableRow>
@@ -96,9 +160,17 @@ const CategoryList = ({ categories, onEdit, onDelete }) => {
         onClose={handleEditModalClose}
         onSave={(newCategory) => {
           onEdit(editingCategory, newCategory);
-          handleEditModalClose(); 
+          handleEditModalClose();
         }}
         categoryName={editingCategory}
+      />
+      <AddEmployeeModal
+        open={addEmployeeModalOpen}
+        onClose={handleAddEmployeeModalClose}
+        onAddEmployee={(employee) => {
+          onAddEmployee(editingCategory, employee);
+          handleAddEmployeeModalClose();
+        }}
       />
     </TableContainer>
   );

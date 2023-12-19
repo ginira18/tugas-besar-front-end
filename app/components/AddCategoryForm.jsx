@@ -20,7 +20,7 @@ const AddCategoryForm = ({ onAddCategory }) => {
         variant="outlined"
         value={categoryName}
         onChange={(e) => setCategoryName(e.target.value)}
-      /> <br/>
+      /> <br />
       <Button variant="contained" onClick={handleAddCategory}>
         Tambah Kategori
       </Button>

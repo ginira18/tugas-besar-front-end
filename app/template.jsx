@@ -29,7 +29,17 @@ function ResponsiveDrawer({children, window}) {
   return (
     <html>
       <body>
-        {children}
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+          <Navbar window={window} drawerWidth={drawerWidth}></Navbar>
+          <Box
+            component="main"
+            sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+          >
+            <Toolbar />
+            {children}
+          </Box>
+        </Box>
       </body>
     </html>
   );

@@ -1,15 +1,10 @@
 "use client"
 import React from 'react';
-import Layout from './layout';
 import { Button } from '@mui/material';
 
 const Home = () => {
   return (
-    <Layout>
-      <div>
-        Halaman Chart
-      </div>
-    </Layout>
+      <p>tes</p>
   );
 };
 export default Home;
