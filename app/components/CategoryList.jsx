@@ -147,8 +147,11 @@ const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }
                 <Button variant="outlined" onClick={() => onDelete(category)}>
                   Delete
                 </Button>
-                <Button variant="outlined" onClick={() => handleAddEmployee(category)}>
+                {/* <Button variant="outlined" onClick={() => handleAddEmployee(category)}>
                   Tambah Karyawan
+                </Button> */}
+                <Button variant="outlined" onClick={() => handleDetail(category)}>
+                  Detail
                 </Button>
               </TableCell>
             </TableRow>

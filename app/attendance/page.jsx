@@ -1,5 +1,4 @@
-
-"use client";
+'use client'
 import React, { useState } from 'react';
 import CategoryListAttendance from '../components/CategoryListAttendance'; // Ganti impor komponen dengan nama yang benar
 

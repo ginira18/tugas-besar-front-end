@@ -53,7 +53,6 @@ const AddEmployeeForm = ({ onAddEmployee }) => {
             value={employeeName}
             onChange={(e) => setEmployeeName(e.target.value)}
           />
-          <br/>
           <Button variant="contained" onClick={handleAddEmployee}>
             Tambahkan
           </Button>
