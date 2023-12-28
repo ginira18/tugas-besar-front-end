@@ -26,9 +26,7 @@ const CategoryListAttendance = ({ categories }) => {
   };
 
   const handleAbsensi = (categoryName, kehadiran) => {
-    // Lakukan logika atau panggil fungsi absensi di sini
     console.log(`Absen di kategori: ${categoryName} dengan kehadiran:`, kehadiran);
-    // TODO: Implementasi logika absensi sesuai kebutuhan proyek Anda
   };
 
   return (

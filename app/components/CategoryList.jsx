@@ -1,3 +1,4 @@
+'use client'
 
 import React, { useState } from 'react';
 import Table from '@mui/material/Table';
@@ -12,13 +13,27 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import AddEmployeeForm from './AddEmployeeForm';
+import { useRouter, usePathname } from 'next/navigation'
 
-const EditCategoryModal = ({ open, onClose, onSave, categoryName }) => {
-  const [editedCategory, setEditedCategory] = useState(categoryName);
-
-  const handleSave = () => {
-    onSave(editedCategory);
-    onClose();
+const EditCategoryModal = ({ open, onClose, category}) => {
+  const router = useRouter()
+  const pathname = usePathname()
+  const [editedCategory, setEditedCategory] = useState("");
+  
+  const handleSave = async () => {
+    try {
+      let payload = {
+        name: editedCategory
+      }
+      await fetch(`api/category_employees/${category.id}`, {
+        method: "PUT",
+        body: JSON.stringify(payload)
+      })
+    } catch (err) {
+      console.log(err)
+    } finally {
+      onClose();
+    }
   };
 
   return (
@@ -38,12 +53,15 @@ const EditCategoryModal = ({ open, onClose, onSave, categoryName }) => {
         <Typography variant="h6" component="div">
           Edit Kategori
         </Typography>
-        <TextField
-          label="Nama Kategori"
-          variant="outlined"
-          value={editedCategory}
-          onChange={(e) => setEditedCategory(e.target.value)}
-        />
+        <div>
+          <TextField
+            label="Nama Kategori"
+            variant="outlined"
+            value={editedCategory}
+            onChange={(e) => setEditedCategory(e.target.value)}
+            margin="normal"
+          />
+        </div>
         <Button variant="contained" onClick={handleSave}>
           Simpan
         </Button>
@@ -107,8 +125,8 @@ const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }
   const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
 
-  const handleEditCategory = (categoryName) => {
-    setEditingCategory(categoryName);
+  const handleEditCategory = (category) => {
+    setEditingCategory(category);
     setEditModalOpen(true);
   };
 
@@ -139,7 +157,7 @@ const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }
         <TableBody>
           {categories.map((category, index) => (
             <TableRow key={index}>
-              <TableCell>{category}</TableCell>
+              <TableCell>{category.name}</TableCell>
               <TableCell>
                 <Button variant="outlined" onClick={() => handleEditCategory(category)}>
                   Edit
@@ -165,7 +183,7 @@ const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }
           onEdit(editingCategory, newCategory);
           handleEditModalClose();
         }}
-        categoryName={editingCategory}
+        category={editingCategory}
       />
       <AddEmployeeModal
         open={addEmployeeModalOpen}

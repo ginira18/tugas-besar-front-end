@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model category_employees {
+  id        Int         @id @default(autoincrement())
+  name      String
+  employees employees[]
+}
+
+model employees {
+  id                   Int                @id @default(autoincrement())
+  email                String             @unique(map: "Employees_email_key")
+  alamat               String
+  no_handphone         String
+  category_employee_id Int
+  categoryemployees    category_employees @relation(fields: [category_employee_id], references: [id], map: "Employees_category_employee_id_fkey")
+
+  @@index([category_employee_id], map: "Employees_category_employee_id_fkey")
+}

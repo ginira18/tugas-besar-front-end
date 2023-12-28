@@ -1,15 +1,32 @@
+'use client'
 
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useRouter, usePathname } from 'next/navigation';
 
-const AddCategoryForm = ({ onAddCategory }) => {
+
+const AddCategoryForm = () => {
   const [categoryName, setCategoryName] = useState('');
+  const router = useRouter()
+  const pathname = usePathname()
 
-  const handleAddCategory = () => {
+  const refreshData = () => {
+    router.refresh()
+  }
+
+  const handleAddCategory = async () => {
     if (categoryName.trim() !== '') {
-      onAddCategory(categoryName);
-      setCategoryName('');
+      try {
+        await fetch('/api/category_employees', {
+          method: "POST",
+          body: JSON.stringify({ name: categoryName })
+        })
+        refreshData()
+        setCategoryName('');
+      } catch(err) {
+        console.log(err)
+      }
     }
   };
 
