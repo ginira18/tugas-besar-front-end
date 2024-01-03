@@ -1,4 +1,4 @@
-import { insertCategoryEmployees } from '@/app/_services/employees'
+import { insertCategoryEmployees } from '@/app/_services/category_employees'
 
 export async function POST(req) {
     let { name } = await req.json()

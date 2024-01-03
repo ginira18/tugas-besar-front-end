@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,122 +9,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import AddEmployeeForm from './AddEmployeeForm';
-import { useRouter, usePathname } from 'next/navigation'
+import EditCategoryModal from '@/app/components/EditCategoryModal';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-const EditCategoryModal = ({ open, onClose, category}) => {
+const CategoryList = ({ categories }) => {
   const router = useRouter()
-  const pathname = usePathname()
-  const [editedCategory, setEditedCategory] = useState("");
-  
-  const handleSave = async () => {
-    try {
-      let payload = {
-        name: editedCategory
-      }
-      await fetch(`api/category_employees/${category.id}`, {
-        method: "PUT",
-        body: JSON.stringify(payload)
-      })
-    } catch (err) {
-      console.log(err)
-    } finally {
-      onClose();
-    }
-  };
+  const refreshData = () => {
+    router.refresh()
+  }
 
-  return (
-    <Modal open={open} onClose={onClose}>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          bgcolor: 'background.paper',
-          border: '2px solid #000',
-          boxShadow: 24,
-          p: 4,
-        }}
-      >
-        <Typography variant="h6" component="div">
-          Edit Kategori
-        </Typography>
-        <div>
-          <TextField
-            label="Nama Kategori"
-            variant="outlined"
-            value={editedCategory}
-            onChange={(e) => setEditedCategory(e.target.value)}
-            margin="normal"
-          />
-        </div>
-        <Button variant="contained" onClick={handleSave}>
-          Simpan
-        </Button>
-      </Box>
-    </Modal>
-  );
-};
-
-const AddEmployeeModal = ({ open, onClose, onAddEmployee }) => {
-  const [employeeName, setEmployeeName] = useState('');
-  const [employeeNIP, setEmployeeNIP] = useState('');
-
-  const handleAddEmployee = () => {
-    if (employeeName.trim() !== '' && employeeNIP.trim() !== '') {
-      onAddEmployee({ name: employeeName, nip: employeeNIP });
-      setEmployeeName('');
-      setEmployeeNIP('');
-      onClose();
-    }
-  };
-
-  return (
-    <Modal open={open} onClose={onClose}>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          bgcolor: 'background.paper',
-          border: '2px solid #000',
-          boxShadow: 24,
-          p: 4,
-        }}
-      >
-        <Typography variant="h6" component="div">
-          Tambah Karyawan
-        </Typography>
-        <TextField
-          label="NIP"
-          variant="outlined"
-          value={employeeNIP}
-          onChange={(e) => setEmployeeNIP(e.target.value)}
-        />
-        <TextField
-          label="Nama Karyawan"
-          variant="outlined"
-          value={employeeName}
-          onChange={(e) => setEmployeeName(e.target.value)}
-        />
-        <Button variant="contained" onClick={handleAddEmployee}>
-          Tambahkan
-        </Button>
-      </Box>
-    </Modal>
-  );
-};
-
-const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
+
 
   const handleEditCategory = (category) => {
     setEditingCategory(category);
@@ -135,15 +33,16 @@ const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }
     setEditingCategory(null);
   };
 
-  const handleAddEmployee = (categoryName) => {
-    setEditingCategory(categoryName);
-    setAddEmployeeModalOpen(true);
-  };
-
-  const handleAddEmployeeModalClose = () => {
-    setAddEmployeeModalOpen(false);
-    setEditingCategory(null);
-  };
+  const onDelete = async (id) => {
+    try {
+      await fetch(`api/category_employees/${id}`, {
+        method: "DELETE",
+      })
+      refreshData()
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <TableContainer>
@@ -162,15 +61,14 @@ const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }
                 <Button variant="outlined" onClick={() => handleEditCategory(category)}>
                   Edit
                 </Button>
-                <Button variant="outlined" onClick={() => onDelete(category)}>
+                <Button variant="outlined" onClick={() => onDelete(category.id)}>
                   Delete
                 </Button>
-                {/* <Button variant="outlined" onClick={() => handleAddEmployee(category)}>
-                  Tambah Karyawan
-                </Button> */}
-                <Button variant="outlined" onClick={() => handleDetail(category)}>
-                  Detail
-                </Button>
+                <Link href={`employees/${category.id}`}>
+                  <Button variant="outlined">
+                    Detail
+                  </Button>
+                </Link>
               </TableCell>
             </TableRow>
           ))}
@@ -179,19 +77,7 @@ const CategoryList = ({ categories, onEdit, onDelete, onAddEmployee, employees }
       <EditCategoryModal
         open={editModalOpen}
         onClose={handleEditModalClose}
-        onSave={(newCategory) => {
-          onEdit(editingCategory, newCategory);
-          handleEditModalClose();
-        }}
         category={editingCategory}
-      />
-      <AddEmployeeModal
-        open={addEmployeeModalOpen}
-        onClose={handleAddEmployeeModalClose}
-        onAddEmployee={(employee) => {
-          onAddEmployee(editingCategory, employee);
-          handleAddEmployeeModalClose();
-        }}
       />
     </TableContainer>
   );

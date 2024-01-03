@@ -1,27 +1,29 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-export async function getCategoryEmployees() {
-    const category_employees = await prisma.category_employees.findMany()
-    return category_employees
+export async function getEmployees() {
+    const employees = await prisma.employees.findMany()
+    return employees
 }
 
-export async function insertCategoryEmployees(name) {
+export async function insertEmployees(name, alamat, category_employee_id) {
     try {
-        const category_employee = await prisma.category_employees.create({
+        const employee = await prisma.employees.create({
             data: {
                 name: name,
+                alamat: alamat,
+                category_employee_id: parseInt(category_employee_id),
             }
         });
-        return category_employee;
+        return employee;
     } catch (err) {
         console.log(err);
     }
 }
 
-export async function updateCategoryEmployees(id, name) {
+export async function updateEmployees(id, name) {
     try {
-        const category_employee = await prisma.category_employees.update({
+        const employee = await prisma.employees.update({
             where: {
                 id: parseInt(id)
             },
@@ -29,7 +31,20 @@ export async function updateCategoryEmployees(id, name) {
                 name: name,
             }
         });
-        return category_employee;
+        return employee;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export async function deleteEmployees(id) {
+    try {
+        const employee = await prisma.employees.delete({
+            where: {
+                id: parseInt(id)
+            }
+        });
+        return employee;
     } catch (err) {
         console.log(err);
     }

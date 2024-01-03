@@ -9,7 +9,6 @@ import { useRouter, usePathname } from 'next/navigation';
 const AddCategoryForm = () => {
   const [categoryName, setCategoryName] = useState('');
   const router = useRouter()
-  const pathname = usePathname()
 
   const refreshData = () => {
     router.refresh()
