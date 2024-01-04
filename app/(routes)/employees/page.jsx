@@ -4,7 +4,6 @@ import CategoryList from '@/app/components/CategoryList';
 import { getCategoryEmployees } from '@/app/_services/category_employees'
 
 export default async function EmployeesPage(){
-  
   let categories = await getCategoryEmployees()
 
   return (
