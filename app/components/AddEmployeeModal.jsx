@@ -27,7 +27,7 @@ const AddEmployeeModal = ({ category_employee_id }) => {
       try {
         await fetch('/api/employees', {
           method: "POST",
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             name: employeeName,
             alamat: employeeAlamat,
             category_employee_id: category_employee_id,

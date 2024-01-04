@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/material';
 import { Margin, MarginOutlined } from '@mui/icons-material';
@@ -7,8 +7,9 @@ import { Roboto } from 'next/font/google';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
-export default function Login() {
+export default function Registration() {
     return (
+
         <Box
             sx={{
                 position: 'absolute',
@@ -20,23 +21,40 @@ export default function Login() {
             }}
         >
             <div style={{ margin: 50 }}>
-                <Typography variant='h4' style={{ marginBottom:50, textAlign: "center", fontFamily: `Roboto`, fontWeight: 'bold' }}>
-                    Login
+                <Typography variant='h4' style={{marginBottom:50, textAlign: "center", fontFamily: `Roboto`, fontWeight: 'bold' }}>
+                   Registration
                 </Typography>
 
-                {/* <h4 style={{ marginBottom: 10, fontFamily: `Roboto` }}>Username</h4> */}
+                {/* <h4 style={{ marginBottom: 10, fontFamily: `Roboto` }}>Nama</h4> */}
                 <TextField
-                    id="filled-search"
-                    label="Username"
+                    id="outlined-filled-search"
+                    label="Nama"
+                    type="nama"
+                    variant="filled"
+                    margin='normal'
+                    fullWidth
+                />
+                <br />
+                <TextField
+                    id="outlined-filled-search"
+                    label="Alamat"
+                    type="alamat"
+                    variant="filled"
+                    margin='normal'
+                    fullWidth
+                />
+                <br />
+                <TextField
+                    id="outlined-filled-search"
+                    label="Usename"
                     type="username"
                     variant="filled"
                     margin='normal'
                     fullWidth
                 />
                 <br />
-                {/* <h4 style={{ marginBottom: 10, fontFamily: `Roboto` }}>Password</h4> */}
                 <TextField
-                    id=" -password-input"
+                    id="password-input"
                     label="Password"
                     type="password"
                     autoComplete="current-password"
@@ -44,19 +62,21 @@ export default function Login() {
                     margin='normal'
                     fullWidth
                 />
+                
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                 >
-                    Sign In
+                    Register
                 </Button>
 
-                <Link href="/registration" variant="body2">
-                    {"Don't have an account? Registration"}
+                <Link href="login" variant="body2">
+                    {"You have an account? Login"}
                 </Link>
             </div>
         </Box>
+
     )
 }
