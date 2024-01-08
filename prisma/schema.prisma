@@ -13,10 +13,11 @@ model category_employees {
 }
 
 model employees {
-  id                   Int    @id @default(autoincrement())
+  id                   Int           @id @default(autoincrement())
   name                 String
   alamat               String
   category_employee_id Int
+  attendances          attendances[]
 
   @@index([category_employee_id], map: "Employees_category_employee_id_fkey")
 }
@@ -26,4 +27,22 @@ model users {
   name     String @db.VarChar(255)
   username String @unique(map: "username") @db.VarChar(255)
   password String @db.VarChar(255)
+}
+
+model attendances {
+  id          Int                   @id @default(autoincrement())
+  date        DateTime              @default(now()) @db.Date
+  kehadiran   attendances_kehadiran
+  employee_id Int
+  employees   employees             @relation(fields: [employee_id], references: [id], onDelete: Cascade, map: "attendances_ibfk_1")
+
+  @@unique([date, employee_id], map: "date")
+  @@index([employee_id], map: "employee_id")
+}
+
+enum attendances_kehadiran {
+  hadir
+  tidak_hadir      @map("tidak hadir")
+  izin
+  EMPTY_ENUM_VALUE @map("")
 }

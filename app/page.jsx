@@ -1,5 +1,4 @@
-import React from 'react';
-
+'use server'
 const Home = () => {
   return (
       <p>tes</p>

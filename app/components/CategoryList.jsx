@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import EditCategoryModal from '@/app/components/EditCategoryModal';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Padding } from '@mui/icons-material';
 
 const CategoryList = ({ categories }) => {
   const router = useRouter()

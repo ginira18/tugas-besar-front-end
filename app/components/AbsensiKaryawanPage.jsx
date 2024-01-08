@@ -1,6 +1,6 @@
+'use client'
 
 import React, { useState } from 'react';
-import Layout from '../layout';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Radio, FormControlLabel } from '@mui/material';
 
 const KaryawanData = [
@@ -26,7 +26,7 @@ const AbsensiKaryawanPage = ({ onAbsensi, onClose }) => {
   };
 
   return (
-    <Layout>
+    <>
       <h1>Absensi Karyawan</h1>
       <TableContainer component={Paper}>
         <Table>
@@ -63,7 +63,7 @@ const AbsensiKaryawanPage = ({ onAbsensi, onClose }) => {
         </Table>
       </TableContainer>
       <button variant="contained" onClick={handleAbsensiSubmit}>Submit Absensi</button>
-    </Layout>
+    </>
   );
 };
 
