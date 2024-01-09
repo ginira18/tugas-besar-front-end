@@ -7,21 +7,21 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import EditCategoryModal from '@/app/components/EditCategoryModal';
+import EditEmployeeModal from '@/app/components/EditEmployeeModal';
 import Button from '@mui/material/Button';
 
 const EmployeeList = ({ employees }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState(null);
+  const [editingEmployee, setEditingEmployee] = useState(null);
 
-  const handleEditCategory = (category) => {
-    setEditingCategory(category);
+  const handleEditEmployee = (employee) => {
+    setEditingEmployee(employee);
     setEditModalOpen(true);
   };
 
   const handleEditModalClose = () => {
     setEditModalOpen(false);
-    setEditingCategory(null);
+    setEditingEmployee(null);
   };
 
   return (
@@ -40,7 +40,7 @@ const EmployeeList = ({ employees }) => {
               <TableCell>{employee.name}</TableCell>
               <TableCell>{employee.alamat}</TableCell>
               <TableCell>
-                <Button variant="outlined" onClick={() => handleEditCategory(employee)}>
+                <Button variant="outlined" onClick={() => handleEditEmployee(employee)}>
                   Edit
                 </Button>
                 {/* <Button variant="outlined" onClick={() => onDelete(employee)}>
@@ -54,10 +54,10 @@ const EmployeeList = ({ employees }) => {
           ))}
         </TableBody>
       </Table>
-      <EditCategoryModal
+      <EditEmployeeModal
         open={editModalOpen}
         onClose={handleEditModalClose}
-        category={editingCategory}
+        employee={editingEmployee}
       />
     </TableContainer>
   );

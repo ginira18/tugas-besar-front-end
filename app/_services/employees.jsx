@@ -40,15 +40,13 @@ export async function insertEmployees(name, alamat, category_employee_id) {
     }
 }
 
-export async function updateEmployees(id, name) {
+export async function updateEmployees(id, employee_args) {
     try {
         const employee = await prisma.employees.update({
             where: {
                 id: parseInt(id)
             },
-            data: {
-                name: name,
-            }
+            data: employee_args
         });
         return employee;
     } catch (err) {
