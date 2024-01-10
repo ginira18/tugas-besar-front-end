@@ -1,8 +1,13 @@
 import { getEmployeeAttendancesByCategoryAndDate, insertOrUpdate } from "@/app/_services/attendances";
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, FormControlLabel, RadioGroup, Radio, Button } from "@mui/material";
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, FormControlLabel, RadioGroup, Radio, Button, Paper } from "@mui/material";
 import CustomDatePicker from "@/app/components/CustomDatePicker";
 import MyRadioGroup from "@/app/components/MyRadioGroup";
-
+import Card from "@mui/material/Card";
+import WorkIcon from '@mui/icons-material/Work';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import WorkOffIcon from '@mui/icons-material/WorkOff';
+import Grid from "@mui/material/Grid";
+import { green, blue, red } from "@mui/material/colors";
 
 export default async function AttendancePage({ params: { id }, searchParams }) {
   const date = searchParams?.date ?? new Date();
@@ -13,12 +18,47 @@ export default async function AttendancePage({ params: { id }, searchParams }) {
   return (
     <form action={insertOrUpdate}>
       <h1>Presensi</h1>
-      {total_hadir}
 
-      {total_izin}
-      
-      {total_tidak_hadir}
       <CustomDatePicker defaultValue={date} />
+      <Grid container spacing={2} sx={{ marginY: 3 }}>
+        <Grid item xs={4}>
+          <Grid container sx={{ textAlign: `center`, bgcolor: '#f5f5f5', padding: 2, alignItems: "center", boxShadow: 3 }}>
+            <Grid item xs={6}>
+              <WorkIcon sx={{ color: blue[300] }} />
+              <p style={{ margin: 0, padding: 0 }}>Hadir</p>
+            </Grid>
+            <Grid item xs={6}>
+              <h2> {total_hadir}</h2>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={4}>
+          <Grid container column sx={{ textAlign: `center`, bgcolor: '#f5f5f5', padding: 2, alignItems: "center", boxShadow: 3 }}>
+            <Grid item xs={6}>
+              <WorkHistoryIcon sx={{ color: green[300] }} />
+              <p style={{ margin: 0, padding: 0 }}>Izin</p>
+            </Grid>
+            <Grid item xs={6}>
+              <h2>{total_izin}</h2>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid xs={4} item>
+          <Grid container sx={{ textAlign: `center`, bgcolor: '#f5f5f5', padding: 2, alignItems: "center", boxShadow: 3 }}>
+            <Grid item xs={6}>
+              <WorkOffIcon sx={{ color: red[300] }} />
+              <p style={{ margin: 0, padding: 0 }}>Tidak Hadir</p>
+            </Grid>
+            <Grid item xs={6}>
+              <h2>{total_tidak_hadir}</h2>
+            </Grid>
+          </Grid>
+        </Grid>
+
+      </Grid>
+
       <TableContainer>
         <Table>
           <TableHead>

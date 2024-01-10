@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Radio, FormControlLabel } from '@mui/material';
 
-const KaryawanData = [
-  { id: 1, nama: 'Karyawan 1' },
-  { id: 2, nama: 'Karyawan 2' },
-  { id: 3, nama: 'Karyawan 3' },
-];
+// const KaryawanData = [
+//   { id: 1, nama: 'Karyawan 1' },
+//   { id: 2, nama: 'Karyawan 2' },
+//   { id: 3, nama: 'Karyawan 3' },
+// ];
 
 const AbsensiKaryawanPage = ({ onAbsensi, onClose }) => {
   const [kehadiran, setKehadiran] = useState({});

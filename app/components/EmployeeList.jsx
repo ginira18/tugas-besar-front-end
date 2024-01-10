@@ -16,7 +16,7 @@ const EmployeeList = ({ employees }) => {
 
   const handleEditEmployee = (employee) => {
     setEditingEmployee(employee);
-    setEditModalOpen(true);
+    setEditModalOpen(true);   
   };
 
   const handleEditModalClose = () => {
