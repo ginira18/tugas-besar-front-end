@@ -3,8 +3,12 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-export async function getEmployees() {
-    const employees = await prisma.employees.findMany()
+export async function getEmployees(category_employee_id) {
+    const employees = await prisma.employees.findMany({
+        where: {
+            category_employee_id: parseInt(category_employee_id)
+        }
+    })
     return employees
 }
 

@@ -8,9 +8,10 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import WorkOffIcon from '@mui/icons-material/WorkOff';
 import Grid from "@mui/material/Grid";
 import { green, blue, red } from "@mui/material/colors";
+import dayjs from "dayjs";
 
 export default async function AttendancePage({ params: { id }, searchParams }) {
-  const date = searchParams?.date ?? new Date();
+  const date = searchParams?.date ?? dayjs(new Date()).format('YYYY-MM-DD');
   const employees = await getEmployeeAttendancesByCategoryAndDate(id, date);
   const total_hadir = employees.filter(employee => employee.attendances.length > 0 && employee.attendances[0].kehadiran === 'hadir').length
   const total_izin = employees.filter(employee => employee.attendances.length > 0 && employee.attendances[0].kehadiran === 'izin').length

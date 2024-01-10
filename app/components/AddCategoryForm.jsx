@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useRouter, usePathname } from 'next/navigation';
 
-
 const AddCategoryForm = () => {
   const [categoryName, setCategoryName] = useState('');
   const router = useRouter()
@@ -32,6 +31,7 @@ const AddCategoryForm = () => {
   return (
     <div>
       <TextField
+        margin='normal'
         label="Nama Kategori"
         variant="outlined"
         value={categoryName}

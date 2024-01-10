@@ -1,12 +1,11 @@
-
 import EmployeeList from '@/app/components/EmployeeList';
 import { getEmployees } from '@/app/_services/employees'
 import AddEmployeeModal from '@/app/components/AddEmployeeModal';
 
 export default async function DetailCategory({params}){
-  let employees = await getEmployees()
-
+  
   let category_employee_id = params.id
+  let employees = await getEmployees(category_employee_id)
 
   return (
     <div>

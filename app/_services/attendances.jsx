@@ -21,6 +21,42 @@ export async function getEmployeeAttendancesByCategoryAndDate(category_employee_
 
 }
 
+export async function getChartAttendanceByMonth(month) {
+    const hadir = await prisma.attendances.count({
+        where: {
+            date: {
+                gte: month.toISOString(),
+                lte: month.add(1, 'month').toISOString(),
+            },
+            kehadiran: 'hadir'
+        }
+    })
+    const izin = await prisma.attendances.count({
+        where: {
+            date: {
+                gte: month.toISOString(),
+                lte: month.add(1, 'month').toISOString(),
+            },
+            kehadiran: 'izin'
+        }
+    })
+    const tidak_hadir = await prisma.attendances.count({
+        where: {
+            date: {
+                gte: month.toISOString(),
+                lte: month.add(1, 'month').toISOString(),
+            },
+            kehadiran: 'tidak_hadir'
+        }
+    })
+
+    return [
+        hadir,
+        izin,
+        tidak_hadir,
+    ]
+}
+
 export async function insertOrUpdate(formData) {
     try {
         const formDataEntries = formData.entries();
