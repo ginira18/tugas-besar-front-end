@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
+
 export default function Navbar({drawerWidth}) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -27,9 +28,17 @@ export default function Navbar({drawerWidth}) {
 
     const drawer = (
         <div>
-            <Toolbar />
+            {/* <Toolbar sx={{
+                marginTop: "4px",
+                marginBottom: "4px",
+            }}/> */}
+            <div style={{textAlign:"center", marginBottom:"20px", marginTop:"15px"}}>
+                <h1 style={{color:"#3c95d8", fontFamily:"Roboto", margin:0}}>LOGO</h1>
+                 </div>
+            {/* <h1></h1> */}
+
             <Divider />
-            <List>
+            <List style={{paddingTop:"70%", paddingBottom:"100%"}}>
                 <ListItem disablePadding>
                     <ListItemButton href='/'>
                         <ListItemIcon><HomeIcon />

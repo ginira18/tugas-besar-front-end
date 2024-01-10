@@ -4,6 +4,9 @@ import CustomMonthPicker from './components/CustomMonthPicker';
 import CustomBarChart from './components/CustomBarChart';
 import dayjs from 'dayjs';
 import { getChartAttendanceByMonth } from './_services/attendances';
+import ButtonPrint from './components/ButtonPrint';
+import Button from '@mui/material/Button';
+import PrintIcon from '@mui/icons-material/Print';
 
 const Home = async ({ searchParams }) => {
   const month = searchParams?.month ? dayjs(searchParams.month) : dayjs(new Date())
@@ -30,6 +33,8 @@ const Home = async ({ searchParams }) => {
       <h1>Kehadiran</h1>
       <CustomMonthPicker defaultValue={month.toISOString()} />
       <CustomBarChart xAxis={chart_xAxis} series={chart_series} />
+      <ButtonPrint />
+      
     </>
   );
 };
